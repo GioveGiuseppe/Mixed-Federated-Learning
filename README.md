@@ -3,6 +3,7 @@ It's a process that combine both the well established type of fl (vertical and h
 This allows to exploit all the benefits of the two type of fl, thus allowing for great flexibility.  
 
 This tool uses [Flower](https://flower.dev/) and [OpenMined/pyvertical](https://github.com/OpenMined/PyVertical) as fl libraries.
+The src folder is the source code of the Pyvertical framework.
 
 # Dependencies that must be installed installed:
 
