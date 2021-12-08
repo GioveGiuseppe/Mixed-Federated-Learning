@@ -2,7 +2,7 @@
 It's a process that combine both the well established type of fl (vertical and horizontal) in a unique coherent process.  
 This allows to exploit all the benefits of the two type of fl, thus allowing for great flexibility.  
 
-This tool uses [Flower](https://flower.dev/) and [OpenMined/pyvertical](https://github.com/OpenMined/PyVertical) as fl libraries.
+This tool uses [Flower](https://flower.dev/) and [OpenMined/pyvertical](https://github.com/OpenMined/PyVertical) as fl libraries.  
 The src folder is the source code of the Pyvertical framework.
 
 # Dependencies that must be installed installed:
@@ -20,6 +20,8 @@ sudo apt-get install -y libgl1-mesa-dev
 
 # How to use.
 
+*Note: This tool does not work in local. Only via socket on multiple machines*
+
 ## Starting the main server.
 First of all you need to start the main server which is gonna send the configuration files for the process to all clients.  
 The main server is also gonna deliver the updated model to all clients at the start of every mixed fl round.  
@@ -35,4 +37,6 @@ Argument 1:
 - 2 for horizontal group client
 - 3 for mixed client
 
-Argument 2: ipv4 address of the main server
+Argument 2: ipv4 address of the main server  
+
+*Note: The horizontal group is not fully tested*
