@@ -1,11 +1,10 @@
-"""	
-per utilizzare il wrapper bisogna specificare:
+"""
+To use the wrapper you have to specify:
 
-1)i parametri di fl nel file di config
-2)L'oggetto che contiene il dataset
-3)I modelli in pytorch per pyvertical e tensorflow per flower
-4)Gli optimizer
-5)Le funzioni di traduzione della neural network
+1)The fl parameters (from the config file)
+2)The object that contains the dataset
+3)The pytorch and tensorflow NeuralNetworks (hard-coded)
+4)The functions for the Models translation Pytorch <-> Tensorflow (hard-coded for the specific Neural-Networks since its not completely generilized)
 """
 
 import json
@@ -95,22 +94,6 @@ class MixedProcess(FlwrProcess):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 #PyVertical model-------------------------------------------------------------------------------------
 
@@ -178,7 +161,7 @@ def loadmodelparams(model):
 
   
 
-"""model conversion functions"""
+"""model conversion functions -----------------------------------------------------------------------------------------------""" 
 
 def torch_to_tf(settings):
 
@@ -200,22 +183,6 @@ def torch_to_tf(settings):
   optimizer=tf.keras.optimizers.Adam(0.001)
   return model, optimizer
 
-
-""" removed
-def tf_to_torch2 (net):
-  model = np.load("1keras.npz")
-  vmodel=net
-  
-  i=0
-  for x in net[0]:
-    x.weight = nn.Parameter(torch.Tensor(np.reshape  (np.ravel(model["arr_"+str(i)+".npy"]), (x.weight.shape) )))
-    i+=2
-  for x in net[1]:
-    x.weight = nn.Parameter(torch.Tensor(np.reshape  (np.ravel(model["arr_"+str(i)+".npy"]), (x.weight.shape) )))
-    break
-  
-  return vmodel
-"""
 
 def tf_to_torch(net):
   model = torch.load("model")
