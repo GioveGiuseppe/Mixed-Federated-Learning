@@ -1,0 +1,22 @@
+{
+  "data_path": "train-images.gz",
+  "labels_path": "train-labels.gz",
+  "data_num": 60000,
+  "test_num": 3000,
+  "sizeX": 28,
+  "sizeY": 28,
+  "start": 0,
+  "torch_seed": 1,
+  "batch_size": 128,
+  "learning_rate": 0.003,
+  "num_clients": 4,
+  "steps_per_epoch": 20,
+  "mixed_rounds": 5,
+  "rounds": 30,
+  "epochs": 2,
+  "fepochs": 30,
+  "group0": ["172.31.6.32"],
+  "group1": ["172.31.3.247","",""],
+  "ipv6" :" 0:0:0:0:0:FFFF:AC1F:037C"
+  
+}
