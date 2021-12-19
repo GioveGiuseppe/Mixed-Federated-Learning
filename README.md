@@ -40,3 +40,24 @@ Argument 1:
 Argument 2: ipv4 address of the main server  
 
 *Note: The horizontal group is not fully tested*
+
+
+## Configuration file.
+ 
+  "data_path": path to the data to use (same for all the nodes),
+  "labels_path": path to the data related labels (same for all the nodes),
+  "data_num": number of data to use for training,
+  "test_num": number of data to use for testing, 
+  "num_clients": total number of clients nodes,
+  "mixed_rounds": number of rounds of the mixed process,
+  "rounds": number of round of the vertical and horizontal fl processes,
+  
+  Data related to the machine learning process. Change it based on the used dataset
+  "sizeX": 28,
+  "sizeY": 28,
+  "batch_size": 128,
+  "learning_rate": 0.003,
+  
+  "nodes" : ["put the ipv4 addresses of your nodes heres"]
+
+
