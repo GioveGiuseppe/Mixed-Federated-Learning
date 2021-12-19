@@ -11,43 +11,47 @@ import datetime
 
 port = 65432
 
+#Convert an ipv4 address to an ipv6 address and returns it
 def convert4to6(ipv4):
   numbers = list(map(int, ipv4.split('.')))
   return('0:0:0:0:0:FFFF:{:02x}{:02x}:{:02x}{:02x}'.format(*numbers))
 
+#return the number of rounds to be executed
 def nr():
   with open('config.json', "r") as f:
    data = json.load(f) 
   return data["mixed_rounds"]  
 
+#Main process. Central node that coordinates all the nodes and groups
 def execute_M_Groups(nodes=[], port=65432 ):
- hostname = socket.gethostname()
- host = socket.gethostbyname(hostname)
- #ipv6 = socket.getaddrinfo(hostname, None, socket.AF_INET6)[0][4][0]#ipv6 address self
- ipv6 = convert4to6(host)
-
- with open('config.json', "r") as f:
-  data = json.load(f)
  
- data["ipv6"] = ipv6
+ #preparation
+ hostname = socket.gethostname() 
+ host = socket.gethostbyname(hostname)
+ ipv6 = convert4to6(host) #get the ipv6 address of the machine
+
+ # Open the config file save the ipv6 address and get the ipv4 addresses of the nodes
+ with open('config.json', "r") as f:
+  data = json.load(f) 
+ data["ipv6"] = ipv6  
  if not nodes:
     for node in data["nodes"]:
        nodes.append(node)
-       nodes.append(node) 
-  
+       nodes.append(node)   
  with open('config.json', 'w') as f:
   json.dump(data, f, indent=2)
 
+ #Send the config File and the Models to all the nodes 
  for x in range(data["mixed_rounds"]+1):
    nodesT = nodes.copy()
-   
+   #Open the connection as a Server   
    server = MyServer()
    server.Open(host, port)
    print("i nodi sono")
    print(nodesT)
    
    i = 0  
-   while nodesT:     
+   while nodesT:  # while there are nodes to be served     
 
     print("server listening")
     
@@ -85,6 +89,7 @@ def execute_M_Groups(nodes=[], port=65432 ):
    
    
    #time.sleep(10)
+   #executes the final round as a flwr server
    h = MixedProcess() 
    h.start_server(ipv6)
    print("round ended at " + str(datetime.datetime.now()))
@@ -102,21 +107,22 @@ def receive_files(host,filename="tfmodel"):
     client.Socket.close() 
     print("modello tf ricevuto")
 
+# returns from the config file the ipv6 address of the central machine
 def get_ipv6_S():
   with open('config.json', "r") as f:
     data = json.load(f)
   ipv6 = data["ipv6"]
   return ipv6 
 
-#vertical client
+#Vertical fl
 def vertical_client():
   host=sys.argv[2]#ipv4 address centraal server
 
   nrounds = -1    
   while True:
     nrounds+=1
-
     receive_files(host)
+    #instantiate and execute pyvertical process. If it's the first round uses an empty model else uses the updated model.
     v = PyProcess()
     if nrounds == 0:
       v.execute()
@@ -124,11 +130,13 @@ def vertical_client():
       v.execute(True)
     if (nrounds >= nr()):
       break
-     
+    
+    # once the vertical fl process ends, the node contributes as a vertical node n the central process
     h = MixedProcess()
     h.start_client(get_ipv6_S())
     time.sleep(3)
-    
+ 
+#Horizontal fl
 def horizontal():
  host = sys.argv[2]#ipv4 central cerver
  nrounds = -1
@@ -145,7 +153,7 @@ def horizontal():
   
 
 
-#Not fully tested-------------------
+#Experimental - Not fully tested-------------------
 
 #horizontal-group server    
 def horizontal_server():
@@ -223,7 +231,6 @@ def horizontal_client():
   
   while not connected:
    try:
-
     s.connect((group_host,54321)) #("SERVER HORIZONTAL DA CONFIG.JSON")
     connected = True
    except Exception as e:
@@ -235,7 +242,6 @@ def horizontal_client():
   if (nrounds >= nr()):
     break 
 #-------------------------------------------------
-
 
 
 
