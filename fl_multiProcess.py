@@ -20,7 +20,7 @@ def nr():
    data = json.load(f) 
   return data["mixed_rounds"]  
 
-def execute_M_Groups(nodes=['172.31.14.68', '172.31.14.68', '172.31.14.92', '172.31.14.92','172.31.8.49','172.31.8.49','172.31.10.224','172.31.10.224'], port=65432 ):
+def execute_M_Groups(nodes=[], port=65432 ):
  hostname = socket.gethostname()
  host = socket.gethostbyname(hostname)
  #ipv6 = socket.getaddrinfo(hostname, None, socket.AF_INET6)[0][4][0]#ipv6 address self
@@ -30,6 +30,10 @@ def execute_M_Groups(nodes=['172.31.14.68', '172.31.14.68', '172.31.14.92', '172
   data = json.load(f)
  
  data["ipv6"] = ipv6
+ if not nodes:
+    for node in data["nodes"]:
+       nodes.append(node)
+       nodes.append(node) 
   
  with open('config.json', 'w') as f:
   json.dump(data, f, indent=2)
