@@ -17,6 +17,7 @@
   "fepochs": 30,
   "group0": ["172.31.6.32"],
   "group1": ["172.31.3.247","",""],
-  "ipv6" :" 0:0:0:0:0:FFFF:AC1F:037C"
+  "ipv6" :" 0:0:0:0:0:FFFF:AC1F:037C",
+  "nodes" : ["put the ipv4 addresses of your nodes heres"]
   
 }
