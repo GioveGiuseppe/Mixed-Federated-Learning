@@ -36,6 +36,7 @@ Argument 1:
 - 1 for horizontal group server
 - 2 for horizontal group client
 - 3 for mixed client
+- 4 for the central server
 
 Argument 2: ipv4 address of the main server  
 
