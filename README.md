@@ -33,8 +33,6 @@ To start a client and have it be part of the process, you need to execute the fl
 
 Argument 1:
 - 0 for vertical fl
-- 1 for horizontal group server
-- 2 for horizontal group client
 - 3 for mixed client
 - 4 for the central server
 
